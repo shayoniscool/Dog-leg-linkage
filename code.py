@@ -18,8 +18,8 @@ lHipCon = 0
 lThExt = 0
 lThCon = 90
 
-#offset = math.pi # alternate
-offset = math.pi/ # together
+offset = math.pi # alternate
+#offset = math.pi/2 # together
 
 class Leg:
     def __init__(self, thighPin, hipPin, legOffset, hipExtendedAngle, hipContractedAngle,
@@ -68,13 +68,17 @@ class Leg:
 
     def start(self, hip_Phase):
         self.hip_Phase = hip_Phase
-        self.thigh_Phase = hip_Phase + self.shift
+        self.thigh_Phase = hip_Phase - self.shift
         self.hip_Motor.angle = self.hipS + self.hipA*math.cos(self.hip_Phase)
         self.thigh_Motor.angle = self.thighS + self.thighA*math.cos(self.thigh_Phase)
 
 leftLeg = Leg(Constants.left_Leg_Pin, Constants.left_Hip_Pin, 0,rHipExt,rHipCon,rThExt,rThCon)
 rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin, offset, lHipExt,lHipCon,lThExt,lThCon)
 
+leftLeg.hipA *= 0.5
+rightLeg.hipA *= 0.5
+leftLeg.thighA *= 0.5
+rightLeg.thighA *= 0.5
 speed = 0
 max_Speed = 12
 leftLeg.start(0)
