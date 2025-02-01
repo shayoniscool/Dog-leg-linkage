@@ -21,11 +21,11 @@ KST_Frequency=333
 #offsets and movement data
 delta_t=0.0015
 hip_Offset=0.5
-speed=19.0
 
 
 #all leg offsets are based off of the left back leg.
 right_Leg_Offset=0.5
 leg_actuation_range=90
 hip_actuation_range=90
+
 
