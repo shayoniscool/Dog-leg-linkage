@@ -1,10 +1,10 @@
 
 
 #adafruit pin configuration
-left_Leg_Pin=6
-left_Hip_Pin=0
-right_Leg_Pin=4
-right_Hip_Pin=5
+left_Leg_Pin=13
+left_Hip_Pin=12
+right_Leg_Pin=15
+right_Hip_Pin=14
 
 #motor constants
 
