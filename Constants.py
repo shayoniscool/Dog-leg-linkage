@@ -1,4 +1,15 @@
 
+rHipExt = 10
+rHipCon = 90
+rThExt = 90
+rThCon = 0
+#right leg min and max angles
+
+lHipExt = 80
+lHipCon = 0
+lThExt = 0
+lThCon = 90
+#left leg min and max angles
 
 #adafruit pin configuration
 left_Leg_Pin=13
