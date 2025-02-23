@@ -1,15 +1,39 @@
 import board
 import busio
+import pulseio
+import adafruit_irremote
 import math
+from enum import Enum
 import Constants
 from adafruit_servokit import ServoKit
 import time
 from Leg import Leg
-
 #configure the board
 #get everything special
 i2c = busio.I2C(board.GP1, board.GP0)
+pulsein = pulseio.PulseIn(board.GP6, maxlen=120, idle_state=True)
+decoder = adafruit_irremote.GenericDecode()
 kit = ServoKit(channels=16, i2c=i2c)
+
+got_code = False
+# 0,1,2,3,...,9,*,#,left,up,right,down,ok
+codes = [(0, 255, 74, 181),
+    (0, 255, 104, 151),
+    (0, 255, 152, 103),
+    (0, 255, 176, 79),
+    (0, 255, 48, 207),
+    (0, 255, 24, 231),
+    (0, 255, 122, 133),
+    (0, 255, 16, 239),
+    (0, 255, 56, 199),
+    (0, 255, 90, 165),
+    (0, 255, 66, 189),
+    (0, 255, 82, 173),
+    (0, 255, 34, 221),
+    (0, 255, 98, 157),
+    (0, 255, 194, 61),
+    (0, 255, 168, 87),
+    (0, 255, 2, 253)]
 
 offset = math.pi
 #offset = math.pi/2 # together
@@ -32,6 +56,14 @@ leftLeg.start(0)
 rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
 
 while True: #forever
+    digit = -100
+    while digit < 0:
+        try :
+            digit = codes.index(decoder.decode_bits(decoder.read_pulses(pulsein)))
+            print(digit)
+        except :
+            print("invalid")
+            pass
     leftLeg.move(speed*Constants.delta_t) #move the left leg
     rightLeg.move(speed*Constants.delta_t)  #move the right leg
     if speed < max_Speed:
