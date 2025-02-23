@@ -34,38 +34,69 @@ codes = [(0, 255, 74, 181),
     (0, 255, 194, 61),
     (0, 255, 168, 87),
     (0, 255, 2, 253)]
-
-offset = math.pi
-#offset = math.pi/2 # together
-
-#makes an object that contains many parameters used above
-leftLeg = Leg(Constants.left_Leg_Pin, Constants.left_Hip_Pin, 0,Constants.rHipExt,Constants.rHipCon,Constants.rThExt,Constants.rThCon,kit)
-rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin, offset,Constants.lHipExt,Constants.lHipCon,Constants.lThExt,Constants.lThCon,kit)
-
-leftLeg.hipA *= 0.5
-rightLeg.hipA *= 0.5
-leftLeg.thighA *= 0.5
-rightLeg.thighA *= 0.5
-
-speed = 0
-max_Speed = 12
-#start with low speed
-leftLeg.hipS+=20
-rightLeg.hipS-=20
-leftLeg.start(0)
-rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
-
-while True: #forever
-    digit = -100
+digit = -100
+def resetRemote():
     while digit < 0:
         try :
             digit = codes.index(decoder.decode_bits(decoder.read_pulses(pulsein)))
-            print(digit)
         except :
-            print("invalid")
+            #print("invalid")
             pass
-    leftLeg.move(speed*Constants.delta_t) #move the left leg
-    rightLeg.move(speed*Constants.delta_t)  #move the right leg
-    if speed < max_Speed:
-        speed += 0.1 #increase speed; accelerate until max speed is reached
-    #time.sleep(Constants.delta_t)
+#makes an object that contains many parameters used above
+leftLeg = Leg(Constants.left_Leg_Pin, Constants.left_Hip_Pin,Constants.rHipExt,Constants.rHipCon,Constants.rThExt,Constants.rThCon,kit)
+rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin,Constants.lHipExt,Constants.lHipCon,Constants.lThExt,Constants.lThCon,kit)
+
+
+
+resetRemote()
+if digit == 1 : # walk mode
+    leftLeg.hipA *= 0.5
+    rightLeg.hipA *= 0.5
+    leftLeg.thighA *= 0.5
+    rightLeg.thighA *= 0.5
+
+    #start with low speed
+    leftLeg.hipS+=20
+    rightLeg.hipS-=20
+    leftLeg.start(0)
+    rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
+    max_Speed = 12
+elif digit==2 :# trot mode
+    #configure later
+    leftLeg.hipA *= 0.5
+    rightLeg.hipA *= 0.5
+    leftLeg.thighA *= 0.5
+    rightLeg.thighA *= 0.5
+
+    #start with low speed
+    leftLeg.hipS+=20
+    rightLeg.hipS-=20
+    leftLeg.start(0)
+    rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
+    max_Speed = 12
+elif digit==3 :# gallop mode
+    #configure later
+    leftLeg.hipA *= 0.5
+    rightLeg.hipA *= 0.5
+    leftLeg.thighA *= 0.5
+    rightLeg.thighA *= 0.5
+
+    #start with low speed
+    leftLeg.hipS+=20
+    rightLeg.hipS-=20
+    leftLeg.start(0)
+    rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
+    max_Speed = 12
+else:
+    print("error")
+    pass
+
+speed = 0
+resetRemote()
+if digit == 16 : # walk mode
+    while True :
+        leftLeg.move(speed*Constants.delta_t) #move the left leg
+        rightLeg.move(speed*Constants.delta_t)  #move the right leg
+        if speed < max_Speed:
+            speed += 0.1 #increase speed; accelerate until max speed is reached
+            #time.sleep(Constants.delta_t)

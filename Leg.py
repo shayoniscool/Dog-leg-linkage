@@ -3,10 +3,9 @@ import Constants
 import time
 
 class Leg:
-    def __init__(self, thighPin, hipPin, legOffset, hipExtendedAngle, hipContractedAngle,
+    def __init__(self, thighPin, hipPin, hipExtendedAngle, hipContractedAngle,
         thighExtendedAngle, thighContractedAngle,servoKit):
         self.servoKit=servoKit
-        self.legOffset = legOffset
         self.shift = math.pi/2
 
         self.hipS=(hipExtendedAngle+hipContractedAngle)/2
