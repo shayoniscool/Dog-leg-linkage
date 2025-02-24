@@ -20,16 +20,42 @@ rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin, offset,Constant
 
 leftLeg.hipA *= 0.5
 rightLeg.hipA *= 0.5
+
+'''Walk cycle
+leftLeg.hipA *= 0.5
+rightLeg.hipA *= 0.5
 leftLeg.thighA *= 0.5
 rightLeg.thighA *= 0.5
-
 speed = 0
 max_Speed = 12
-#start with low speed
 leftLeg.hipS+=20
 rightLeg.hipS-=20
 leftLeg.start(0)
-rightLeg.start(math.pi) #offset by half cycle, so legs will move opposite each other
+rightLeg.start(math.pi)'''
+
+'''FlyingTrot cycle'''
+leftLeg.hipA *= 0.5
+rightLeg.hipA *= 0.5
+leftLeg.thighA *= 1
+rightLeg.thighA *= 1
+speed = 0
+max_Speed = 18
+leftLeg.hipS+=20
+rightLeg.hipS-=20
+leftLeg.start(0)
+rightLeg.start(math.pi)
+
+'''Double gallop cycle
+leftLeg.hipA *= 0.5
+rightLeg.hipA *= 0.5
+leftLeg.thighA *= 1
+rightLeg.thighA *= 1
+speed = 0
+max_Speed = 18
+leftLeg.hipS+=20
+rightLeg.hipS-=20
+leftLeg.start(0)
+rightLeg.start(math.pi/5)'''
 
 while True: #forever
     leftLeg.move(speed*Constants.delta_t) #move the left leg
