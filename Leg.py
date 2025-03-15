@@ -47,7 +47,6 @@ class Leg:
             self.thigh_Phase -= 2*math.pi
 
         #set the angles of the servos to follow cosine waves based on the parameters set above
-        print(self.hipS + self.hipA*math.cos(self.hip_Phase))
         self.hip_Motor.angle = self.hipS + self.hipA*math.cos(self.hip_Phase)
         self.thigh_Motor.angle = self.thighS + self.thighA*math.cos(self.thigh_Phase)
 
