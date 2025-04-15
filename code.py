@@ -75,13 +75,13 @@ else:
 if digit==0 or digit==1:
     max_Speed = 12
 elif digit==2 or digit==3 :
-    max_Speed = 12
+    max_Speed = 14
 elif digit==4 or digit==5:
-    max_Speed = 12
+    max_Speed = 16
 elif digit==6 or digit==7:
-    max_Speed = 12
+    max_Speed = 18
 elif digit==8 or digit==9:
-    max_Speed = 12
+    max_Speed = 20
 
 while True: #forever
     leftLeg.move(speed*Constants.delta_t) #move the left leg
