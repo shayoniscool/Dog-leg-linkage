@@ -51,42 +51,37 @@ rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin,Constants.lHipEx
 leftLeg.hipA *= 0.5
 rightLeg.hipA *= 0.5
 
-if digit == 1 :
+
+if digit % 2 == 0:#even
     '''Walk cycle'''
     leftLeg.hipA *= 0.5
     rightLeg.hipA *= 0.5
     leftLeg.thighA *= 0.5
     rightLeg.thighA *= 0.5
-    speed = 0
-    max_Speed = 12
     leftLeg.hipS+=20
     rightLeg.hipS-=20
     leftLeg.start(0)
     rightLeg.start(math.pi)
-elif digit == 2 :
-	'''FlyingTrot cycle'''
-	leftLeg.hipA *= 0.5
+else:
+    leftLeg.hipA *= 0.5
 	rightLeg.hipA *= 0.5
 	leftLeg.thighA *= 1
 	rightLeg.thighA *= 1
-	speed = 0
-	max_Speed = 18
 	leftLeg.hipS+=20
 	rightLeg.hipS-=20
 	leftLeg.start(0)
 	rightLeg.start(math.pi)
-elif digit == 3 :
-	'''Double gallop cycle'''
-	leftLeg.hipA *= 0.5
-	rightLeg.hipA *= 0.5
-	leftLeg.thighA *= 1
-	rightLeg.thighA *= 1
-	speed = 0
-	max_Speed = 18
-	leftLeg.hipS+=20
-	rightLeg.hipS-=20
-	leftLeg.start(0)
-	rightLeg.start(math.pi/5)
+
+if digit==0 or digit==1:
+    max_Speed = 12
+elif digit==2 or digit==3 :
+    max_Speed = 12
+elif digit==4 or digit==5:
+    max_Speed = 12
+elif digit==6 or digit==7:
+    max_Speed = 12
+elif digit==8 or digit==9:
+    max_Speed = 12
 
 while True: #forever
     leftLeg.move(speed*Constants.delta_t) #move the left leg
