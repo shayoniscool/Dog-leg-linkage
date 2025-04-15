@@ -15,7 +15,6 @@ kit = ServoKit(channels=16, i2c=i2c)
 pulsein = pulseio.PulseIn(board.GP6, maxlen=120, idle_state=True)
 decoder = adafruit_irremote.GenericDecode()
 
-
 # 0,1,2,3,...,9,*,#,left,up,right,down,ok
 codes = [(0, 255, 74, 181),
     (0, 255, 104, 151),
@@ -35,12 +34,14 @@ codes = [(0, 255, 74, 181),
     (0, 255, 168, 87),
     (0, 255, 2, 253)]
 
+print("Waiting for RC...")
 digit = -100
 while digit < 0:
     pulses = decoder.read_pulses(pulsein)
     try :
       code = decoder.decode_bits(pulses)
       digit = codes.index(code)
+      print("digit = %d"%digit)
     except :
       pass
 
@@ -51,9 +52,9 @@ rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin,Constants.lHipEx
 leftLeg.hipA *= 0.5
 rightLeg.hipA *= 0.5
 
-
 if digit % 2 == 0:#even
     '''Walk cycle'''
+    print("walk")
     leftLeg.hipA *= 0.5
     rightLeg.hipA *= 0.5
     leftLeg.thighA *= 0.5
@@ -63,14 +64,15 @@ if digit % 2 == 0:#even
     leftLeg.start(0)
     rightLeg.start(math.pi)
 else:
+    print("trot")
     leftLeg.hipA *= 0.5
-	rightLeg.hipA *= 0.5
-	leftLeg.thighA *= 1
-	rightLeg.thighA *= 1
-	leftLeg.hipS+=20
-	rightLeg.hipS-=20
-	leftLeg.start(0)
-	rightLeg.start(math.pi)
+    rightLeg.hipA *= 0.5
+    leftLeg.thighA *= 1
+    rightLeg.thighA *= 1
+    leftLeg.hipS+=20
+    rightLeg.hipS-=20
+    leftLeg.start(0)
+    rightLeg.start(math.pi)
 
 if digit==0 or digit==1:
     max_Speed = 12
@@ -83,6 +85,9 @@ elif digit==6 or digit==7:
 elif digit==8 or digit==9:
     max_Speed = 20
 
+print("max_Speed = %g"%max_Speed)
+
+speed=0
 while True: #forever
     leftLeg.move(speed*Constants.delta_t) #move the left leg
     rightLeg.move(speed*Constants.delta_t)  #move the right leg
