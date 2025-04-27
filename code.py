@@ -15,24 +15,7 @@ kit = ServoKit(channels=16, i2c=i2c)
 pulse_In = pulseio.PulseIn(board.GP6, maxlen=120, idle_state=True)
 decoder = adafruit_irremote.GenericDecode()
 
-# 0,1,2,3,...,9,*,#,left,up,right,down,ok
-codes = [(0, 255, 74, 181),
-    (0, 255, 104, 151),
-    (0, 255, 152, 103),
-    (0, 255, 176, 79),
-    (0, 255, 48, 207),
-    (0, 255, 24, 231),
-    (0, 255, 122, 133),
-    (0, 255, 16, 239),
-    (0, 255, 56, 199),
-    (0, 255, 90, 165),
-    (0, 255, 66, 189),
-    (0, 255, 82, 173),
-    (0, 255, 34, 221),
-    (0, 255, 98, 157),
-    (0, 255, 194, 61),
-    (0, 255, 168, 87),
-    (0, 255, 2, 253)]
+
 
 print("Waiting for RC...")
 digit = -100
@@ -40,7 +23,7 @@ while digit < 0:
     pulses = decoder.read_pulses(pulse_In)
     try :
       code = decoder.decode_bits(pulses)
-      digit = codes.index(code)
+      digit = Constants.codes.index(code)
       print("digit = %d"%digit)
     except :
       pass
