@@ -12,7 +12,7 @@ from Leg import Leg
 #get everything special
 i2c = busio.I2C(board.GP1, board.GP0)
 kit = ServoKit(channels=16, i2c=i2c)
-pulsein = pulseio.PulseIn(board.GP6, maxlen=120, idle_state=True)
+pulse_In = pulseio.PulseIn(board.GP6, maxlen=120, idle_state=True)
 decoder = adafruit_irremote.GenericDecode()
 
 # 0,1,2,3,...,9,*,#,left,up,right,down,ok
@@ -37,7 +37,7 @@ codes = [(0, 255, 74, 181),
 print("Waiting for RC...")
 digit = -100
 while digit < 0:
-    pulses = decoder.read_pulses(pulsein)
+    pulses = decoder.read_pulses(pulse_In)
     try :
       code = decoder.decode_bits(pulses)
       digit = codes.index(code)
@@ -46,33 +46,33 @@ while digit < 0:
       pass
 
 #makes an object that contains many parameters used above
-leftLeg = Leg(Constants.left_Leg_Pin, Constants.left_Hip_Pin,Constants.rHipExt,Constants.rHipCon,Constants.rThExt,Constants.rThCon,kit)
-rightLeg = Leg(Constants.right_Leg_Pin, Constants.right_Hip_Pin,Constants.lHipExt,Constants.lHipCon,Constants.lThExt,Constants.lThCon,kit)
+left_Leg = Leg(Constants.LEFT_THIGH_PIN, Constants.LEFT_HIP_PIN,Constants.RIGHT_HIP_EXTENDED,Constants.RIGHT_HIP_CONTRACTED,Constants.RIGHT_THIGH_EXTENDED,Constants.RIGHT_THIGH_CONTRACTED,kit)
+right_Leg = Leg(Constants.RIGHT_THIGH_PIN, Constants.RIGHT_HIP_PIN,Constants.LEFT_HIP_EXTENDED,Constants.LEFT_HIP_CONTRACTED,Constants.LEFT_THIGH_EXTENDED,Constants.LEFT_THIGH_CONTRACTED,kit)
 
-leftLeg.hipA *= 0.5
-rightLeg.hipA *= 0.5
+left_Leg.hip_A *= 0.5
+right_Leg.hip_A *= 0.5
 
 if digit % 2 == 0:#even
     '''Walk cycle'''
     print("walk")
-    leftLeg.hipA *= 0.5
-    rightLeg.hipA *= 0.5
-    leftLeg.thighA *= 0.5
-    rightLeg.thighA *= 0.5
-    leftLeg.hipS+=20
-    rightLeg.hipS-=20
-    leftLeg.start(0)
-    rightLeg.start(math.pi)
+    left_Leg.hip_A *= 0.5
+    right_Leg.hip_A *= 0.5
+    left_Leg.thigh_A *= 0.5
+    right_Leg.thigh_A *= 0.5
+    left_Leg.hip_S+=20
+    right_Leg.hip_S-=20
+    left_Leg.start(0)
+    right_Leg.start(math.pi)
 else:
     print("trot")
-    leftLeg.hipA *= 0.5
-    rightLeg.hipA *= 0.5
-    leftLeg.thighA *= 1
-    rightLeg.thighA *= 1
-    leftLeg.hipS+=20
-    rightLeg.hipS-=20
-    leftLeg.start(0)
-    rightLeg.start(math.pi)
+    left_Leg.hip_A *= 0.5
+    right_Leg.hip_A *= 0.5
+    left_Leg.thigh_A *= 1
+    right_Leg.thigh_A *= 1
+    left_Leg.hip_S+=20
+    right_Leg.hip_S-=20
+    left_Leg.start(0)
+    right_Leg.start(math.pi)
 
 if digit==0 or digit==1:
     max_Speed = 12
@@ -89,8 +89,8 @@ print("max_Speed = %g"%max_Speed)
 
 speed=0
 while True: #forever
-    leftLeg.move(speed*Constants.delta_t) #move the left leg
-    rightLeg.move(speed*Constants.delta_t)  #move the right leg
+    left_Leg.move(speed*Constants.DELTA_T) #move the left leg
+    right_Leg.move(speed*Constants.DELTA_T)  #move the right leg
     if speed < max_Speed:
         speed += 0.1 #increase speed; accelerate until max speed is reached
-    #time.sleep(Constants.delta_t)
+    #time.sleep(Constants.DELTA_T)

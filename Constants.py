@@ -1,42 +1,42 @@
 
-rHipExt = 10
-rHipCon = 90
-rThExt = 90
-rThCon = 0
 #right leg min and max angles
+RIGHT_HIP_EXTENDED = 10
+RIGHT_HIP_CONTRACTED = 90
+RIGHT_THIGH_EXTENDED = 90
+RIGHT_THIGH_CONTRACTED = 0
 
-lHipExt = 80
-lHipCon = 0
-lThExt = 0
-lThCon = 90
 #left leg min and max angles
+LEFT_HIP_EXTENDED = 80
+LEFT_HIP_CONTRACTED = 0
+LEFT_THIGH_EXTENDED = 0
+LEFT_THIGH_CONTRACTED = 90
 
 #adafruit pin configuration
-left_Leg_Pin=13
-left_Hip_Pin=12
-right_Leg_Pin=15
-right_Hip_Pin=14
+LEFT_THIGH_PIN=13
+LEFT_HIP_PIN=12
+RIGHT_THIGH_PIN=15
+RIGHT_HIP_PIN=14
 
 #motor constants
 
 #feetech motor properties:
-feetech_Pulse_Width_Min=420
-feetech_Pulse_Width_Max=2550
-feetech_Frequency=250
+
+'''FEETECH_PULSE_WIDTH_MIN=420
+FEETECH_PULLSE_WIDTH_MAX=2550
+FEETECH_FREQUENCY=250'''
 
 #KST motor properties
-KST_Pulse_Width_Min=900
-KST_Pulse_Width_Max=2100
-KST_Frequency=333
+KST_PULSE_WIDTH_MIN=900
+KST_PULSE_WIDTH_MAX=2100
+KST_FREQUENCY=333
 
 #offsets and movement data
-delta_t=0.0015
-hip_Offset=0.5
-
+DELTA_T=0.0015
+HIP_OFFSET=0.5
 
 #all leg offsets are based off of the left back leg.
-right_Leg_Offset=0.5
-leg_actuation_range=90
-hip_actuation_range=90
+RIGHT_THIGH_OFFSET=0.5#we don't use this?
+THIGH_ACTUATION_RANGE=90
+HIP_ACTUATION_RANGE=90
 
 
